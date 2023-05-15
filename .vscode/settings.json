@@ -1,0 +1,13 @@
+{
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none",
+    "editor.formatOnType": true,
+    "editor.mouseWheelZoom": true,
+    "window.zoomLevel": 1,                // 視窗縮放
+    "files.autoSave": "onFocusChange",      // 失焦自動儲存
+    "files.encoding": "utf8",               // 設定預設編碼
+    "files.trimTrailingWhitespace": true,
+    "editor.guides.indentation": true, // 儲存的時候，會自動過濾多餘的空格
+}

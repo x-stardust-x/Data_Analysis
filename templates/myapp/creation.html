@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+  <script src="/static/js/config.js"></script>
+  <script src="/static/js/localStorage.js"></script>
+  <script src="/static/js/image.js"></script>
+  <script src="/static/js/auth.js"></script>
+  <script src="/static/js/navbar.js"></script>
+  <script src="/static/js/set-page-info.js"></script>
+  <script src="/static/js/init.js"></script>
+</head>
+
+<body onload="init();">
+  <div class="container-fluid border border-secondary border-width-lg min-vh-100">
+    <div class="row">
+      <div class="col">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white align-items-center px-0">
+          <a class="navbar-brand mr-3" href="index.html">
+            <img class="mr-1 logo-isu" src="/static/imgs/eID-logo.png">
+            <img class="logo-isu" src="/static/imgs/ISU logo-s.png">
+          </a>
+          <a class="navbar-brand mr-0 ml-auto" href="#" data-toggle="dropdown" href="#" role="button"
+            aria-expanded="false">
+            <img style="width: 45px" src="/static/imgs/user-edit-solid.svg">
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item d-flex align-items-center" href="/backend/edit-info.html">
+              <img src="/static/imgs/personal_info.svg" alt="" width="30" height="30"
+                class="d-inline-block align-middle">
+              <span class="pl-2">基本資料</span>
+            </a>
+            <a class="dropdown-item d-flex align-items-center" href="/eid.html">
+              <img src="/static/imgs/eID.svg" alt="" width="30" height="30" class="d-inline-block align-middle">
+              <span class="pl-2">數位身分證</span>
+            </a>
+            <a class="dropdown-item d-flex align-items-center" href="/verifier-cms-list.html">
+              <img src="/static/imgs/cooperate.svg" alt="" width="30" height="30" class="d-inline-block align-middle">
+              <span class="pl-2">永續合作</span>
+            </a>
+            <a class="dropdown-item d-flex align-items-center" href="/verifier-cms-executor-section.html">
+              <img src="/static/imgs/groups.svg" alt="" width="30" height="30" class="d-inline-block align-middle">
+              <span class="pl-2">志工專區</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <section>
+      <div class="container-fluid">
+        <!-- <form action=""> -->
+        <div class="row mt-5 align-items-center justify-content-center">
+          <div class="col-12">
+            <p>志工任務封面</p>
+          </div>
+          <div class="col-12">
+            <div class="border d-flex align-items-center justify-content-center" style="height: 120px;">
+              <img id="task_cover" src="/static/imgs/image_icon.svg" width="100" height="100" alt="">
+              <a href="#" onclick="setImgToLS('task_cover');" class="stretched-link"></a>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4 align-items-center">
+          <div class="col-12">
+            <p>志工任務名稱</p>
+          </div>
+          <div class="col-12">
+            <input id="task_name" class="form-control" type="text" placeholder="請輸入任務名稱">
+          </div>
+        </div>
+        <div class="row mt-4 align-items-center">
+          <div class="col-12">
+            <p>志工任務理念</p>
+          </div>
+          <div class="col-12">
+            <textarea id="overview" class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
+          </div>
+        </div>
+        <div class="row mt-4 align-items-center">
+          <div class="col-12">
+            <p>志工時數</p>
+          </div>
+          <div class="col-6">
+            <div class="d-flex align-items-center">
+              <input id="token" class="form-control" type="text">
+              <span class="ml-2 text-nowrap">小時</span>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4 mb-5 pb-3">
+          <div class="col-12">
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-primary" style="width: 20%" id="doneBtn">完成</button>
+            </div>
+          </div>
+        </div>
+        <!-- </form> -->
+      </div>
+    </section>
+  </div>
+  <script src="/static/js/new_tasks.js"></script>
+</body>
+
+</html>
