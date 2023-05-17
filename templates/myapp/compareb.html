@@ -17,19 +17,21 @@
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <title>房價所得比</title>
   </head>
-
   <body>
-    <form method="get" action="">
-        <button type="submit" name="region" value="全國各縣市" class="btn btn-primary"> 全國各縣市 </button>
-        <button type="submit" name="region" value="北部" class="btn btn-primary"> 北部 </button>
-        <button type="submit" name="region" value="中部" class="btn btn-primary"> 中部 </button>
-        <button type="submit" name="region" value="南部" class="btn btn-primary"> 南部 </button>
-        <button type="submit" name="region" value="東部" class="btn btn-primary"> 東部 </button>
-        <button type="submit" name="region" value="全國總和" class="btn btn-primary">全國總和 </button>
+    <form method="GET" action="{% url 'cbar' %}">
+        <label for="quarter">選擇季別：</label>
+        <select name="quarter" id="quarter">
+            <option value="">全部</option>
+            {% for quarter in quarters %}
+            <option value="{{ quarter }}" {% if quarter == selected_quarter %}selected{% endif %}>{{ quarter }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">查詢</button>
         <a href="../../" class="btn btn-primary">返回</a>
     </form>
-    <div>{{ plot_html|safe }}</div>
+    <div id="plot">{{ plot_html|safe }}</div>
   </body>
 </html>
