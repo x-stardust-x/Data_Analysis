@@ -17,17 +17,39 @@
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <title>房價所得比</title>
   </head>
 
   <body>
     <form method="get" action="">
-      <button type="submit" name="region" value="全國各縣市" class="btn btn-primary">全國各縣市</button>
-      <button type="submit" name="region" value="北部" class="btn btn-primary">北部</button>
-      <button type="submit" name="region" value="中部" class="btn btn-primary">中部</button>
-      <button type="submit" name="region" value="南部" class="btn btn-primary">南部</button>
-      <button type="submit" name="region" value="東部" class="btn btn-primary">東部</button>
-      <button type="submit" name="region" value="全國總和" class="btn btn-primary">全國總和</button>
+      <label for="region">選擇地區：</label>
+      <select name="region">
+        <option value="全國各縣市" {% if selected_region == '全國各縣市' %}selected{% endif %}>全國各縣市</option>
+        <option value="北部" {% if selected_region == '北部' %}selected{% endif %}>北部</option>
+        <option value="中部" {% if selected_region == '中部' %}selected{% endif %}>中部</option>
+        <option value="南部" {% if selected_region == '南部' %}selected{% endif %}>南部</option>
+        <option value="東部" {% if selected_region == '東部' %}selected{% endif %}>東部</option>
+        <option value="全國總和" {% if selected_region == '全國總和' %}selected{% endif %}>全國總和</option>
+      </select>
+      <br>
+      <label for="quarterstart">選擇開始季別：</label>
+      <select name="quarterstart">
+        <option value="">請選擇開始季別</option>
+        {% for quarter in quarters %}
+        <option value="{{ quarter }}" {% if quarter == selected_start_quarter %}selected{% endif %}>{{ quarter }}</option>
+        {% endfor %}
+      </select>
+      <br>
+      <label for="quarterend">選擇結束季別：</label>
+      <select name="quarterend">
+        <option value="">請選擇結束季別</option>
+        {% for quarter in quarters %}
+        <option value="{{ quarter }}" {% if quarter == selected_end_quarter %}selected{% endif %}>{{ quarter }}</option>
+        {% endfor %}
+      </select>
+      <br>
+      <button type="submit" class="btn btn-primary">查詢</button>
       <a href="../../" class="btn btn-primary">返回</a>
     </form>
     <div>{{ plot_html|safe }}</div>
