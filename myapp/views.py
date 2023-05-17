@@ -114,11 +114,23 @@ def cbar(request):
     df = df.iloc[::-1]
     available_quarters = df['年度季別'].unique()
     available_quarters=available_quarters[::-1]
+    selected_region = request.GET.get('region')
     selected_quarter = request.GET.get('quarter')
     filtered_df = df[df['年度季別'] == selected_quarter] if selected_quarter else df
-
+    if selected_region == '全國各縣市':
+        cities = TAIWAN
+    elif selected_region == '北部':
+        cities = ['台北市', '新北市', '桃園市', '新竹縣', '基隆市', '宜蘭縣']
+    elif selected_region == '中部':
+        cities = ['台中市', '彰化縣', '南投縣', '苗栗縣', '雲林縣']
+    elif selected_region == '南部':
+        cities = ['嘉義縣', '嘉義市', '台南市', '高雄市', '屏東縣', '澎湖縣']
+    elif selected_region == '東部':
+        cities = ['台東縣', '花蓮縣']
+    else:
+        cities = ['全國']  # 預設值
     # 使用 Plotly Express 繪製長條圖
-    fig = px.histogram(filtered_df,x='年度季別', y=['台北市','新北市','桃園市','新竹縣','基隆市','宜蘭縣'], title='地區分佈直方圖')
+    fig = px.histogram(filtered_df,x='年度季別', y=cities, title='地區分佈直方圖')
     fig.update_layout(width=1500, height=800 ,yaxis_title='全國房價所得比',barmode='group', xaxis_tickangle=45)
     # 將圖表轉換為HTML
     plot_html = fig.to_html(full_html=False)
