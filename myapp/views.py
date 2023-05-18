@@ -70,6 +70,7 @@ def bar(request):
     selected_region = request.GET.get('region')
     selected_start_quarter = request.GET.get('quarterstart')
     selected_end_quarter = request.GET.get('quarterend')
+    selected_mode = request.GET.get('mode')
 
     if selected_start_quarter and selected_end_quarter:
         start_date = parse_quarter(selected_start_quarter)
@@ -96,10 +97,12 @@ def bar(request):
         cities = ['全國']  # 預設值
 
     fig = px.bar(df, x='年度季別', y=cities, title='房價所得比長條圖')
-    fig.update_layout(width=1600, height=800, yaxis_title='房價所得比')
+    fig.update_layout(width=1600, height=800, yaxis_title='房價所得比',barmode=selected_mode)
     plot_html = fig.to_html(full_html=False)
 
     context = {
+        'selected_mode' : selected_mode,
+        'selected_region' : selected_region,
         'plot_html': plot_html,
         'quarters': available_quarters,
         'selected_start_quarter': selected_start_quarter,

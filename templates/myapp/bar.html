@@ -25,7 +25,7 @@
     <form method="get" action="">
       <label for="region">選擇地區：</label>
       <select name="region">
-        <option value="全國各縣市" {% if selected_region == '全國各縣市' %}selected{% endif %}>全國各縣市</option>
+        <option value="全國各縣市" {% if selected_region == '全國各縣市' %}selected{% endif %}> 全國各縣市 </option>
         <option value="北部" {% if selected_region == '北部' %}selected{% endif %}>北部</option>
         <option value="中部" {% if selected_region == '中部' %}selected{% endif %}>中部</option>
         <option value="南部" {% if selected_region == '南部' %}selected{% endif %}>南部</option>
@@ -45,8 +45,14 @@
       <select name="quarterend">
         <option value="">請選擇結束季別</option>
         {% for quarter in quarters %}
-        <option value="{{ quarter }}" {% if quarter == selected_end_quarter %}selected{% endif %}>{{ quarter }}</option>
+        <option value="{{ quarter }}" {% if quarter == selected_end_quarter %}selected{% endif %}> {{ quarter }}</option>
         {% endfor %}
+      </select>
+      <br>
+      <label for="mode">選擇地區：</label>
+      <select name="mode">
+        <option value="group" {% if selected_mode == 'group' %}selected{% endif %}>group</option>
+        <option value="stack" {% if selected_mode == 'stack' %}selected{% endif %}>stack</option>
       </select>
       <br>
       <button type="submit" class="btn btn-primary">查詢</button>
