@@ -50,7 +50,16 @@ def plot(request):
         cities = ['全國']  # 預設值
 
     fig = px.line(df, x='年度季別', y=cities, title='房價所得比趨勢圖')
-    fig.update_layout(width=1600, height=800, yaxis_title='房價所得比')
+
+    average_line = df[cities].mean(axis=1)  # 平均值数据
+    fig.add_scatter(x=df['年度季別'], y=average_line, mode='lines', name='平均值',line=dict(color='red',width=5,dash='dot'))
+
+    fig.update_layout(
+        width=1600,
+        height=800,
+        yaxis_title='房價所得比'
+    )
+
     plot_html = fig.to_html(full_html=False)
 
     context = {
@@ -115,7 +124,8 @@ def bar(request):
         x=avg_values['年度季別'],
         y=avg_values[cities].mean(axis=1),
         mode='lines',
-        name='平均值'
+        name='平均值',
+	line=dict(color='red',width=5,dash='dot')
     ))
 
     fig.update_layout(
@@ -135,8 +145,6 @@ def bar(request):
         'selected_start_quarter': selected_start_quarter,
         'selected_end_quarter': selected_end_quarter
     }
-
-
     return render(request, 'myapp/bar.html', context)
 
 
