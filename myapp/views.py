@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objs as go
 from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime
@@ -96,18 +97,45 @@ def bar(request):
     else:
         cities = ['全國']  # 預設值
 
-    fig = px.bar(df, x='年度季別', y=cities, title='房價所得比長條圖')
-    fig.update_layout(width=1600, height=800, yaxis_title='房價所得比',barmode=selected_mode)
+    # 计算每个季度各个城市的房价收入比平均值
+    avg_values = df.groupby('年度季別')[cities].mean().reset_index()
+
+    fig = go.Figure()
+
+    # 添加每个城市的柱状图
+    for city in cities:
+        fig.add_trace(go.Bar(
+            x=avg_values['年度季別'],
+            y=avg_values[city],
+            name=city
+        ))
+
+    # 添加平均值的折线图
+    fig.add_trace(go.Scatter(
+        x=avg_values['年度季別'],
+        y=avg_values[cities].mean(axis=1),
+        mode='lines',
+        name='平均值'
+    ))
+
+    fig.update_layout(
+        width=1600,
+        height=800,
+        yaxis_title='房價所得比',
+        barmode=selected_mode
+    )
+
     plot_html = fig.to_html(full_html=False)
 
     context = {
-        'selected_mode' : selected_mode,
-        'selected_region' : selected_region,
+        'selected_mode': selected_mode,
+        'selected_region': selected_region,
         'plot_html': plot_html,
         'quarters': available_quarters,
         'selected_start_quarter': selected_start_quarter,
         'selected_end_quarter': selected_end_quarter
     }
+
 
     return render(request, 'myapp/bar.html', context)
 
