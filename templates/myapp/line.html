@@ -23,15 +23,15 @@
 
   <body>
     <form method="get" action="">
-        <label for="region">選擇地區：</label>
-        <select name="region" id="region">
-            <option value="全國各縣市">全國各縣市</option>
-            <option value="北部">北部</option>
-            <option value="中部">中部</option>
-            <option value="南部">南部</option>
-            <option value="東部">東部</option>
-            <option value="全國總和">全國總和</option>
-        </select>
+      <label for="region">選擇地區：</label>
+      <select name="region">
+        <option value="全國總和" {% if selected_region == '全國總和' %}selected{% endif %}>全國總和</option>
+        <option value="全國各縣市" {% if selected_region == '全國各縣市' %}selected{% endif %}> 全國各縣市 </option>
+        <option value="北部" {% if selected_region == '北部' %}selected{% endif %}>北部</option>
+        <option value="中部" {% if selected_region == '中部' %}selected{% endif %}>中部</option>
+        <option value="南部" {% if selected_region == '南部' %}selected{% endif %}>南部</option>
+        <option value="東部" {% if selected_region == '東部' %}selected{% endif %}>東部</option>
+      </select>
         <br>
         <label for="quarterstart">選擇開始季別：</label>
         <select name="quarterstart" id="quarterstart">

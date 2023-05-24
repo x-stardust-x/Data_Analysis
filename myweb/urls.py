@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from myapp.views import plot, bar , cbar
+from myapp.views import plot, bar , rader
 from django.urls import include, re_path
 from myapp.views import home
 
@@ -24,6 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('line/', plot, name='line'),
     path('bar/', bar, name='map'),
-    path('compareb/', cbar, name='cbar'),
+    path('rader/', rader, name='rader'),
     path('', home, name='home'),
 ]

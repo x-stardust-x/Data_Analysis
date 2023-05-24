@@ -21,21 +21,20 @@
     <title>房價所得比</title>
   </head>
   <body>
-    <form method="GET" action="{% url 'cbar' %}">
+    <form method="GET" action="{% url 'rader' %}">
        <label for="region">選擇地區：</label>
        <select name="region">
+        <option value="全國總和" {% if selected_region == '全國總和' %}selected{% endif %}>全國總和</option>
         <option value="全國各縣市" {% if selected_region == '全國各縣市' %}selected{% endif %}>全國各縣市</option>
         <option value="北部" {% if selected_region == '北部' %}selected{% endif %}>北部</option>
         <option value="中部" {% if selected_region == '中部' %}selected{% endif %}>中部</option>
         <option value="南部" {% if selected_region == '南部' %}selected{% endif %}>南部</option>
         <option value="東部" {% if selected_region == '東部' %}selected{% endif %}>東部</option>
-        <option value="全國總和" {% if selected_region == '全國總和' %}selected{% endif %}>全國總和</option>
        </select>
-        <label for="quarter">選擇季別：</label>
-        <select name="quarter" id="quarter">
-            <option value="">全部</option>
-            {% for quarter in quarters %}
-            <option value="{{ quarter }}" {% if quarter == selected_quarter %}selected{% endif %}>{{ quarter }}</option>
+        <label for="year">選擇季別：</label>
+        <select name="year" id="year">
+            {% for year in years %}
+            <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}</option>
             {% endfor %}
         </select>
         <button type="submit" class="btn btn-primary">查詢</button>
