@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,31 +19,51 @@
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
 
   <body>
     <div class="container">
-      <div class="row mb-3">
+      <div class="row bg-dark">
         <div class="col-12">
+          <div class="fs-1 text-center text-light">全國和台灣各縣市房價</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 p-0">
           <img
-            src="https://picsum.photos/2400/1200?random=9"
-            alt=""
+            src="{% static 'images/Taipei.jpg' %}"
             class="w-100"
           />
         </div>
       </div>
-      <div class="row">
-        <div class="col-3 d-flex justify-content-center">
-          <a href="/line" class="btn btn-primary">折線圖表</a>
+      <div class="row py-2" style="background-color:rgba(104, 255, 111, 0.696);">
+        <div class="col-4 d-flex justify-content-center">
+          <div class="card bg-dark" style="width: 18rem;">
+            <img src="{% static 'images/test_1.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center text-light fs-2 mb-3">折線圖表</h5>
+              <a href="/line" class="btn btn-primary btn-lg d-flex justify-content-center fs-4">點此前往</a>
+            </div>
+          </div>
         </div>
-        <div class="col-3 d-flex justify-content-center">
-          <a href="/bar" class="btn btn-primary">長條圖表</a>
+        <div class="col-4 d-flex justify-content-center">
+          <div class="card bg-dark" style="width: 18rem;">
+            <img src="{% static 'images/test_2.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center text-light fs-2 mb-3">長條圖表</h5>
+              <a href="/bar" class="btn btn-primary btn-lg d-flex justify-content-center fs-4">點此前往</a>
+            </div>
+          </div>
         </div>
-        <div class="col-3 d-flex justify-content-center">
-          <a href="/rader/?year=111" class="btn btn-primary">雷達圖表</a>
-        </div>
-        <div class="col-3 d-flex justify-content-center">
-          <a href="/admin" class="btn btn-primary">資料庫</a>
+        <div class="col-4 d-flex justify-content-center">
+          <div class="card bg-dark" style="width: 18rem;">
+            <img src="{% static 'images/test_3.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center text-light fs-2 mb-3">雷達圖表</h5>
+              <a href="/rader/?year=111" class="btn btn-primary btn-lg d-flex justify-content-center fs-4">點此前往</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

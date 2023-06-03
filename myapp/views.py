@@ -150,32 +150,34 @@ def bar(request):
 
 
 def rader(request):
+
     df = pd.read_csv('myapp\\TCT.csv', encoding='Big5')
     df = df.iloc[::-1]
     available_years = df['年度季別'].str[:3].unique()
     available_years = available_years[::-1]
     line_colors = ['red', 'green', 'blue', 'orange', 'purple', 'yellow', 'pink', 'cyan', 'magenta', 'teal', 'lime', 'brown', 'gray', 'olive', 'navy', 'salmon', 'gold', 'indigo', 'coral', 'orchid', 'turquoise']
+
     # 取得選擇的地區和年份
     selected_region = request.GET.get('region')
     selected_year = request.GET.get('year')
 
+    # 定義地區和篩選條件的對應關係
+    region_conditions = {
+        '全國各縣市': TAIWAN,
+        '北部': ['台北市', '新北市', '桃園市', '新竹縣', '基隆市', '宜蘭縣'],
+        '中部': ['台中市', '彰化縣', '南投縣', '苗栗縣', '雲林縣'],
+        '南部': ['嘉義縣', '嘉義市', '台南市', '高雄市', '屏東縣', '澎湖縣'],
+        '東部': ['台東縣', '花蓮縣'],
+    }
+
     # 根據選擇的地區篩選資料
-    if selected_region == '全國各縣市':
-        cities = TAIWAN
-    elif selected_region == '北部':
-        cities = ['台北市', '新北市', '桃園市', '新竹縣', '基隆市', '宜蘭縣']
-    elif selected_region == '中部':
-        cities = ['台中市', '彰化縣', '南投縣', '苗栗縣', '雲林縣']
-    elif selected_region == '南部':
-        cities = ['嘉義縣', '嘉義市', '台南市', '高雄市', '屏東縣', '澎湖縣']
-    elif selected_region == '東部':
-        cities = ['台東縣', '花蓮縣']
-    else:
-        cities = ['全國']  # 預設值
+    cities = region_conditions.get(selected_region, ['全國'])  # 使用字典的get方法，預設為['全國']
+
     # 根據選擇的年份篩選資料
     filtered_df = df[df['年度季別'].str[:3] == selected_year] if selected_year else df
-    filled_df = filtered_df.copy()
-    filled_df = filled_df.append(filtered_df.iloc[0])
+
+    # 建立填充資料
+    filled_df = pd.concat([filtered_df, filtered_df.iloc[[0]]], ignore_index=True)
 
     # 使用 Plotly Express 繪製長條圖
     fig = px.histogram(filtered_df, x='年度季別', y=cities, title='地區分佈直方圖')
@@ -186,14 +188,14 @@ def rader(request):
 
     for city, color in zip(cities, line_colors):
         radar_fig.add_trace(go.Scatterpolar(
-        r=filled_df[city],
-        theta=filled_df['年度季別'],
-        name=city,
-        mode='lines',
-        line=dict(color=color, width=3),
-        fill='none',
-        hovertemplate='%{r:.2f}',
-    ))
+            r=filled_df[city],
+            theta=filled_df['年度季別'],
+            name=city,
+            mode='lines',
+            line=dict(color=color, width=3),
+            fill='none',
+            hovertemplate='%{r:.2f}',
+        ))
 
     radar_fig.update_layout(
         polar=dict(
@@ -210,13 +212,13 @@ def rader(request):
                 range=[0, filled_df[cities].max().max()]  # 根據資料範圍設定適當的範圍
             )
         ),
-        showlegend=True,
-        title='地區分佈雷達圖',
-        width=800,
-        height=800
-    )
+    showlegend=True,
+    title='地區分佈雷達圖',
+    width=800,
+    height=800
+)
 
-    # 將雷達圖轉換為HTML
+# 將雷達圖轉換為HTML
     radar_html = radar_fig.to_html(full_html=False)
 
     context = {
@@ -225,6 +227,9 @@ def rader(request):
         'years': available_years,
         'selected_year': selected_year
     }
+
+    return render(request, 'myapp/rader.html', context)
+
     return render(request, 'myapp/rader.html', context)
 
 

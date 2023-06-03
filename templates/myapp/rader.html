@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,12 +19,21 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>房價所得比</title>
   </head>
   <body>
-    <form method="GET" action="{% url 'rader' %}">
-       <label for="region">選擇地區：</label>
-       <select name="region">
+    <div class="container-fulid">
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+          <div>{{ plot_html|safe }}</div>
+        </div>
+        <div class="col-12" style="background-color: rgba(75, 255, 84, 0.641);">
+          <form method="GET" action="{% url 'rader' %}">
+            <div class="row m-4">
+              <div class="col-12 d-flex justify-content-center fs-5">
+                <label for="region">選擇地區：</label>
+        <select name="region">
         <option value="全國總和" {% if selected_region == '全國總和' %}selected{% endif %}>全國總和</option>
         <option value="全國各縣市" {% if selected_region == '全國各縣市' %}selected{% endif %}>全國各縣市</option>
         <option value="北部" {% if selected_region == '北部' %}selected{% endif %}>北部</option>
@@ -31,15 +41,23 @@
         <option value="南部" {% if selected_region == '南部' %}selected{% endif %}>南部</option>
         <option value="東部" {% if selected_region == '東部' %}selected{% endif %}>東部</option>
        </select>
-        <label for="year">選擇季別：</label>
+            &emsp;
+               <label for="year">選擇年度：</label>
         <select name="year" id="year">
             {% for year in years %}
             <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}</option>
             {% endfor %}
         </select>
-        <button type="submit" class="btn btn-primary">查詢</button>
-        <a href="../../" class="btn btn-primary">返回</a>
+              </div>
+            </div>
+            <div class="col-12 d-flex justify-content-center mt-2">
+              <button type="submit" class="btn btn-primary btn-lg mx-3">查詢</button>
+              <a href="../../" class="btn btn-danger btn-lg mx-3">返回</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     </form>
-    <div id="plot">{{ plot_html|safe }}</div>
   </body>
 </html>

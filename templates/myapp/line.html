@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,40 +19,54 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>房價所得比</title>
   </head>
 
   <body>
-    <form method="get" action="">
-      <label for="region">選擇地區：</label>
-      <select name="region">
-        <option value="全國總和" {% if selected_region == '全國總和' %}selected{% endif %}>全國總和</option>
-        <option value="全國各縣市" {% if selected_region == '全國各縣市' %}selected{% endif %}> 全國各縣市 </option>
-        <option value="北部" {% if selected_region == '北部' %}selected{% endif %}>北部</option>
-        <option value="中部" {% if selected_region == '中部' %}selected{% endif %}>中部</option>
-        <option value="南部" {% if selected_region == '南部' %}selected{% endif %}>南部</option>
-        <option value="東部" {% if selected_region == '東部' %}selected{% endif %}>東部</option>
-      </select>
-        <br>
-        <label for="quarterstart">選擇開始季別：</label>
-        <select name="quarterstart" id="quarterstart">
-            <option value="">請選擇開始季別</option>
-            {% for quarter in quarters %}
-            <option value="{{ quarter }}" {% if quarter == selected_start_quarter %}selected{% endif %}>{{ quarter }}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <label for="quarterend">選擇結束季別：</label>
-        <select name="quarterend" id="quarterend">
-            <option value="">請選擇結束季別</option>
-            {% for quarter in quarters %}
-            <option value="{{ quarter }}" {% if quarter == selected_end_quarter %}selected{% endif %}>{{ quarter }}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <button type="submit" class="btn btn-primary">查詢</button>
-        <a href="../../" class="btn btn-primary">返回</a>
-    </form>
-    <div>{{ plot_html|safe }}</div>
+    <div class="container-fulid" style="background-color: rgba(75, 255, 84, 0.641);">
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+          <div>{{ plot_html|safe }}</div>
+        </div>
+        <div class="col-12">
+          <form method="get" action="">
+            <div class="row m-4">
+              <div class="col-12 d-flex justify-content-center fs-5">
+                <label for="region">選擇地區：</label>
+            <select name="region">
+              <option value="全國總和" {% if selected_region == '全國總和' %}selected{% endif %}>全國總和</option>
+              <option value="全國各縣市" {% if selected_region == '全國各縣市' %}selected{% endif %}> 全國各縣市 </option>
+              <option value="北部" {% if selected_region == '北部' %}selected{% endif %}>北部</option>
+              <option value="中部" {% if selected_region == '中部' %}selected{% endif %}>中部</option>
+              <option value="南部" {% if selected_region == '南部' %}selected{% endif %}>南部</option>
+              <option value="東部" {% if selected_region == '東部' %}selected{% endif %}>東部</option>
+            </select>
+            &emsp;
+              <label for="quarterstart">選擇開始季別：</label>
+              <select name="quarterstart" id="quarterstart">
+                  <option value="">請選擇開始季別</option>
+                  {% for quarter in quarters %}
+                  <option value="{{ quarter }}" {% if quarter == selected_start_quarter %}selected{% endif %}>{{ quarter }}</option>
+                  {% endfor %}
+              </select>
+              &emsp;
+              <label for="quarterend">選擇結束季別：</label>
+              <select name="quarterend" id="quarterend">
+                  <option value="">請選擇結束季別</option>
+                  {% for quarter in quarters %}
+                  <option value="{{ quarter }}" {% if quarter == selected_end_quarter %}selected{% endif %}>{{ quarter }}</option>
+                  {% endfor %}
+              </select>
+              </div>
+            </div>
+            <div class="col-12 d-flex justify-content-center mt-2">
+              <button type="submit" class="btn btn-primary btn-lg mx-3">查詢</button>
+              <a href="../../" class="btn btn-danger btn-lg mx-3">返回</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
